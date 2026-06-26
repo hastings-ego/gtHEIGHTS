@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gtHEIGHTS | Guesthouse Room Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
+</head>
+
+<body class="antialiased selection:bg-purple-500/20 selection:text-purple-300">
+    <header id="site-header"></header>
+
+    <main class="pt-28 md:pt-32 pb-16 max-w-7xl mx-auto px-4 sm:px-6 w-full flex flex-col justify-center" id="room-detail-container">
+        <!-- Dynamically injected -->
+    </main>
+
+    <footer id="site-footer"></footer>
+    <script src="components.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = parseInt(params.get('id'));
+            const asset = estateDatabase.find(p => p.id === id);
+            const container = document.getElementById('room-detail-container');
+
+            if (!asset) {
+                container.innerHTML = `<div class="view-frame text-center py-20"><h1 class="serif-heading text-4xl sm:text-6xl text-purple-600 mb-4">404</h1><p class="text-zinc-500 text-sm">Room not found.</p><a href="rooms.html" class="text-xs text-white border-b border-white pb-1 mt-4 inline-block">Return to Rooms</a></div>`;
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="view-frame grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start mt-4">
+                    <div class="space-y-4">
+                        <div class="rounded-3xl overflow-hidden border border-white/5 aspect-[4/5] bg-zinc-900">
+                            <img src="${asset.img}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="grid grid-cols-3 sm:grid-cols-3 gap-3 sm:gap-4">
+                            ${asset.gallery.map(img => `<img src="${img}" data-fancybox="gallery" data-caption="Room Gallery VIEW" class="w-full h-20 sm:h-24 object-cover rounded-lg border border-white/10 opacity-80 hover:opacity-100 transition-opacity">`).join('')}
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center py-4">
+                        <span class="text-xs tracking-[0.2em] font-semibold text-purple-500 uppercase mb-2">${asset.tier} <br> ${asset.location}</span>
+                        <h1 class="serif-heading text-3xl sm:text-4xl md:text-5xl font-medium text-white mb-6">${asset.name}</h1>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-y border-white/5 py-4 mb-8 text-center text-xs tracking-wider uppercase text-zinc-400">
+                            <div><p class="text-zinc-600 mb-1">Size</p><p class="font-semibold text-white">${asset.area} m²</p></div>
+                            <div><p class="text-zinc-600 mb-1">Bedrooms</p><p class="font-semibold text-white">${asset.beds}</p></div>
+                            <div><p class="text-zinc-600 mb-1">Bathrooms</p><p class="font-semibold text-white">${asset.baths}</p></div>
+                        </div>
+
+                        <p class="text-zinc-400 leading-relaxed text-sm mb-8 border-l-2 border-purple-500/40 pl-6">${asset.spec}</p>
+                        
+                        <div class="bg-[#0c0c0e] border border-white/5 p-6 rounded-2xl mb-8 flex flex-col sm:flex-row gap-6 sm:justify-between sm:items-center">
+                            <div>
+                                <p class="text-xs text-zinc-500 uppercase tracking-wider">Stay Rate</p>
+                                <p class="text-3xl font-medium text-white mt-1">ZAR ${asset.pricePerDay.toLocaleString()}<span class="text-sm font-normal text-zinc-500"> / day</span></p>
+                            </div>
+                            <a href="book.html?id=${asset.id}" class="bg-white text-black text-xs font-semibold uppercase tracking-widest px-8 py-4 rounded-xl hover:bg-purple-600 hover:text-white transition-all duration-300">
+                                Book This Room
+                            </a>
+                        </div>
+                        <a href="rooms.html" class="text-xs tracking-wider text-zinc-500 hover:text-white transition-colors">&larr; Back to Rooms</a>
+                    </div>
+                </div>
+            `;
+
+            Fancybox.bind("[data-fancybox]", {
+            // Your custom options go here (optional)
+        });
+        });
+    </script>
+
+    <script>
+    $(document).ready(function() {
+            // 3. Initialize the gallery
+            $('.image-gallery').magnificPopup({
+                delegate: 'a', // the selector for gallery item
+                type: 'image',
+                gallery: {
+                  enabled: true // enables navigation arrows
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

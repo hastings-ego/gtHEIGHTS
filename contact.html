@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gtHEIGHTS | Contact Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body class="antialiased selection:bg-purple-500/20 selection:text-purple-300">
+    <header id="site-header"></header>
+
+    <main class="pt-28 md:pt-32 pb-16 max-w-7xl mx-auto px-4 sm:px-6 w-full flex flex-col justify-center space-y-20">
+        
+        <!-- Agent Direct Contact Block -->
+        <div class="view-frame max-w-xl mx-auto text-center w-full">
+            <div class="h-16 w-16 bg-purple-600/10 border border-purple-500/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071a10.5 10.5 0 0114.142 0M1.343 5.757a16.5 16.5 0 0121.314 0"></path></svg>
+            </div>
+            <h1 class="serif-heading text-3xl font-medium text-white mb-2">Speak to Our Guesthouse Team</h1>
+            <p class="text-zinc-400 text-sm mb-8">Have questions or want to arrange a stay? Our dedicated Polokwane team is ready to help.</p>
+            <div class="bg-[#0c0c0e] border border-white/5 p-6 rounded-2xl text-left space-y-4">
+                <div class="flex justify-between border-b border-white/5 pb-3 text-xs"><span class="text-zinc-500">Call/WhatsApp:</span><span class="text-white font-mono">+27 (0) 82 123 4567</span></div>
+                <div class="flex justify-between text-xs"><span class="text-zinc-500">Email Address:</span><span class="text-white font-mono">agent@gtheights.co.za</span></div>
+            </div>
+        </div>
+
+        <div class="border-t border-white/5 w-full max-w-xl mx-auto"></div>
+
+        <!-- Webhook Form -->
+        <div class="view-frame max-w-xl mx-auto w-full" style="animation-delay: 0.1s;">
+            <h2 class="serif-heading text-3xl font-medium text-white mb-6 text-center">Send us a Message</h2>
+            <form id="contact-form" class="space-y-4">
+                <input name="name" type="text" placeholder="Your Name" required class="w-full bg-zinc-950 border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:border-purple-500 focus:outline-none">
+                <input name="contact" type="text" placeholder="Phone Number or Email" required class="w-full bg-zinc-950 border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:border-purple-500 focus:outline-none">
+                <textarea name="message" placeholder="How can we help you today?" required rows="5" class="w-full bg-zinc-950 border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:border-purple-500 focus:outline-none"></textarea>
+                <button type="submit" id="contact-trigger" class="w-full bg-zinc-100 text-black text-xs font-semibold tracking-widest uppercase py-4 rounded-xl hover:bg-purple-600 hover:text-white transition-colors">Route Communication</button>
+            </form>
+        </div>
+
+    </main>
+
+    <footer id="site-footer"></footer>
+    <script src="components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('contact-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const fd = new FormData(e.target);
+                const payload = {
+                    Name: fd.get('name'),
+                    Contact: fd.get('contact'),
+                    Message: fd.get('message')
+                };
+                submitFormToDiscord('General Inquiry', payload, 'contact-trigger');
+            });
+        });
+    </script>
+</body>
+</html>
