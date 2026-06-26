@@ -25,7 +25,7 @@ function renderComponents() {
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
-                <div id="mobile-nav" class="hidden md:hidden absolute left-4 right-4 top-full mt-3 rounded-2xl border border-white/10 bg-[#0c0c0e]/98 backdrop-blur-xl p-4 shadow-2xl">
+                <div id="mobile-nav" class="hidden md:hidden absolute left-4 right-4 top-full mt-3 rounded-2xl border border-white/10 bg-[#09090b] backdrop-blur-xl p-4 shadow-2xl">
                     <div class="flex flex-col gap-3 text-sm tracking-widest uppercase font-medium text-zinc-300">
                         <a href="rooms.html" class="hover:text-white transition-colors py-2">Rooms</a>
                         <a href="agents.html" class="hover:text-white transition-colors py-2">Agents</a>
